@@ -10,14 +10,15 @@
 
 // use singleton design pattern
 class FileManagement {
+    int maxID;
     static FileManagement *instance;
     std::string recordFile;
     std::string maxIdRecordFile;
-    int maxID;
     FileManagement(std::string recordFile, std::string maxIdRecordFile);
 public:
     static FileManagement *getIntance(std::string _recordFile, std::string _maxIdRecordFile);
     int getMaxId();
+
     void readMaxIdFromFile();
     void writeMaxIdToFile();
     void increaseMaxId();

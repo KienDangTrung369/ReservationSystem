@@ -1,6 +1,5 @@
 #include "../include/file_management.h"
 #include "../../Model/include/ticket.h"
-using namespace std;
 FileManagement::FileManagement(std::string recordFile, std::string maxIdRecordFile) {
     this->maxID = 0;
     this->recordFile = recordFile;
@@ -16,37 +15,37 @@ void FileManagement :: insert (Ticket *ticket) {
     std::fstream fileOut;
 
     fileOut.open(recordFile, std::ios::app | std::ios :: out);
-    fileOut << ticket->getID() << endl;
-    fileOut << "Passenger Name: " << ticket->getPassengerName() << endl;
-    fileOut << "Departure City: " << ticket->getDeparture() << endl;
-    fileOut << "Destination City: " << ticket->getDestination() << endl;
-    fileOut << "Day Of Travel: " << ticket->getDate()->toString() << endl;
-    fileOut << "Time Of Travel: " << ticket->getTime()->toString() << endl;
-    fileOut << "Number Of Tickets: " << ticket->getNumberOfTickets() << endl;
+    fileOut << ticket->getID() << std::endl;
+    fileOut << "Passenger Name: " << ticket->getPassengerName() << std::endl;
+    fileOut << "Departure City: " << ticket->getDeparture() << std::endl;
+    fileOut << "Destination City: " << ticket->getDestination() << std::endl;
+    fileOut << "Day Of Travel: " << ticket->getDate()->toString() << std::endl;
+    fileOut << "Time Of Travel: " << ticket->getTime()->toString() << std::endl;
+    fileOut << "Number Of Tickets: " << ticket->getNumberOfTickets() << std::endl;
 
     fileOut.close();
 }
 
 void FileManagement :: searchByDate(Date date) {
-    fstream fileIn;
+    std::fstream fileIn;
     fileIn.open(recordFile);
-    string ID;
-    string fieldName;
-    string fieldDestination;
-    string fieldDeparture;
-    string fieldDate;
-    string filedTime;
-    string fieldNumberOfTickets;
+    std::string ID;
+    std::string fieldName;
+    std::string fieldDestination;
+    std::string fieldDeparture;
+    std::string fieldDate;
+    std::string filedTime;
+    std::string fieldNumberOfTickets;
     bool isExist = false;
     if(fileIn.is_open()) {
         while(getline(fileIn, ID)) {
-            string currentDate;
-            getline(fileIn, fieldName);
-            getline(fileIn, fieldDestination);
-            getline(fileIn, fieldDeparture);
-            getline(fileIn, fieldDate);
-            getline(fileIn, filedTime);
-            getline(fileIn, fieldNumberOfTickets);
+            std::string currentDate;
+            std::getline(fileIn, fieldName);
+            std::getline(fileIn, fieldDestination);
+            std::getline(fileIn, fieldDeparture);
+            std::getline(fileIn, fieldDate);
+            std::getline(fileIn, filedTime);
+            std::getline(fileIn, fieldNumberOfTickets);
             int index = 0;
             while(index < fieldDate.length() && fieldDate[index] != ':') {
                 index++;
@@ -58,43 +57,43 @@ void FileManagement :: searchByDate(Date date) {
             }
             
             if(currentDate == date.toString()) {
-                cout << "Reservation ID: " << ID << endl;
-                cout << fieldName << endl;
-                cout << fieldDestination << endl;
-                cout << fieldDeparture << endl;
-                cout << fieldDate << endl;
-                cout << filedTime << endl;
-                cout << fieldNumberOfTickets << endl;
-                cout << "-------------------------------------------------" << endl;
+                std::cout << "Reservation ID: " << ID << std::endl;
+                std::cout << fieldName << std::endl;
+                std::cout << fieldDestination << std::endl;
+                std::cout << fieldDeparture << std::endl;
+                std::cout << fieldDate << std::endl;
+                std::cout << filedTime << std::endl;
+                std::cout << fieldNumberOfTickets << std::endl;
+                std::cout << "-------------------------------------------------" << std::endl;
                 isExist = true;
             }
         }
         fileIn.close();
     }
     if(!isExist) {
-        cout << "Don't exist any reservation in this day!" << endl;
+        std::cout << "Don't exist any reservation in this day!" << std::endl;
     }
 }
-void FileManagement :: searchByName(const string name) {
-    fstream fileIn;
+void FileManagement :: searchByName(const std::string name) {
+    std::fstream fileIn;
     fileIn.open(recordFile);
-    string ID;
-    string fieldName;
-    string fieldDestination;
-    string fieldDeparture;
-    string fieldDate;
-    string filedTime;
-    string fieldNumberOfTickets;
+    std::string ID;
+    std::string fieldName;
+    std::string fieldDestination;
+    std::string fieldDeparture;
+    std::string fieldDate;
+    std::string filedTime;
+    std::string fieldNumberOfTickets;
     bool isExist = false;
     if(fileIn.is_open()) {
         while(getline(fileIn, ID)) {
-            string currentName;
-            getline(fileIn, fieldName);
-            getline(fileIn, fieldDestination);
-            getline(fileIn, fieldDeparture);
-            getline(fileIn, fieldDate);
-            getline(fileIn, filedTime);
-            getline(fileIn, fieldNumberOfTickets);
+            std::string currentName;
+            std::getline(fileIn, fieldName);
+            std::getline(fileIn, fieldDestination);
+            std::getline(fileIn, fieldDeparture);
+            std::getline(fileIn, fieldDate);
+            std::getline(fileIn, filedTime);
+            std::getline(fileIn, fieldNumberOfTickets);
             int index = 0;
             while(index < fieldName.length() && fieldName[index] != ':') {
                 index++;
@@ -105,32 +104,32 @@ void FileManagement :: searchByName(const string name) {
                 index++;
             }
             if(currentName == name) {
-                cout << "Reservation ID: " << ID << endl;
-                cout << fieldName << endl;
-                cout << fieldDestination << endl;
-                cout << fieldDeparture << endl;
-                cout << fieldDate << endl;
-                cout << filedTime << endl;
-                cout << fieldNumberOfTickets << endl;
-                cout << "-------------------------------------------------" << endl;
+                std::cout << "Reservation ID: " << ID << std::endl;
+                std::cout << fieldName << std::endl;
+                std::cout << fieldDestination << std::endl;
+                std::cout << fieldDeparture << std::endl;
+                std::cout << fieldDate << std::endl;
+                std::cout << filedTime << std::endl;
+                std::cout << fieldNumberOfTickets << std::endl;
+                std::cout << "-------------------------------------------------" << std::endl;
                 isExist = true;
             }
         }
         fileIn.close();
     }
     if(!isExist) {
-        cout << "Don't exist this name!" << endl;
+        std::cout << "Don't exist this name!" << std::endl;
     }
 }
 void FileManagement :: cancel(int ID) {
-    ifstream fileIn;
-    fstream fileOut;
-    string record;
+    std::ifstream fileIn;
+    std::fstream fileOut;
+    std::string record;
     int currentID = 0;
     bool isExist = false;
     
     fileIn.open(recordFile);
-    fileOut.open("temp.txt", ios::app | ios :: out);
+    fileOut.open("temp.txt", std::ios::app | std::ios :: out);
     if(fileIn.is_open()) {
         while(getline(fileIn, record)) {
             currentID = stoi(record);
@@ -140,10 +139,10 @@ void FileManagement :: cancel(int ID) {
                 }
                 isExist = true;
             } else {
-                fileOut << currentID << endl;
+                fileOut << currentID << std::endl;
                 for(int i = 0; i < NUMBER_OF_FIELDS - 1; i++) {
                     getline(fileIn, record);
-                    fileOut << record << endl;
+                    fileOut << record << std::endl;
                 }
             }
         }
@@ -152,7 +151,7 @@ void FileManagement :: cancel(int ID) {
     fileOut.close();
 
     if(!isExist) {
-        cout << "Reservation could not be found!" << endl;
+        std::cout << "Reservation could not be found!" << std::endl;
         remove("temp.txt");
     } else {
         remove(recordFile.c_str());
@@ -163,35 +162,35 @@ void FileManagement :: cancel(int ID) {
     }
 }
 void FileManagement :: modify(Ticket *newTicket) {
-    ifstream fileIn;
-    fstream fileOut;
+    std::ifstream fileIn;
+    std::fstream fileOut;
 
     fileIn.open(recordFile);
-    fileOut.open("temp.txt", ios::app | ios :: out);
-    string record;
+    fileOut.open("temp.txt", std::ios::app | std::ios :: out);
+    std::string record;
     bool updated = false;
     int currentID = 0;
     if(fileIn.is_open()) {
-        while(getline(fileIn, record)) {
+        while(std::getline(fileIn, record)) {
             currentID = stoi(record);
             if(currentID == newTicket->getID()) {
-                fileOut << currentID << endl;
-                fileOut << "Passenger Name: " << newTicket->getPassengerName() << endl;
-                fileOut << "Departure City: " << newTicket->getDeparture() << endl;
-                fileOut << "Destination City: " << newTicket->getDestination() << endl;
-                fileOut << "Day Of Travel: " << newTicket->getDate()->toString() << endl;
-                fileOut << "Time Of Travel: " << newTicket->getTime()->toString() << endl;
-                fileOut << "Number Of Tickets: " << newTicket->getNumberOfTickets() << endl;
+                fileOut << currentID << std::endl;
+                fileOut << "Passenger Name: " << newTicket->getPassengerName() << std::endl;
+                fileOut << "Departure City: " << newTicket->getDeparture() << std::endl;
+                fileOut << "Destination City: " << newTicket->getDestination() << std::endl;
+                fileOut << "Day Of Travel: " << newTicket->getDate()->toString() << std::endl;
+                fileOut << "Time Of Travel: " << newTicket->getTime()->toString() << std::endl;
+                fileOut << "Number Of Tickets: " << newTicket->getNumberOfTickets() << std::endl;
                 updated = true;
                 for(int i = 0; i < NUMBER_OF_FIELDS - 1; i++) {
-                    getline(fileIn, record);
+                    std::getline(fileIn, record);
                 }
-                cout << "Record updated" << endl;
+                std::cout << "Record updated" << std::endl;
             } else {
-                fileOut << currentID << endl;
+                fileOut << currentID << std::endl;
                 for(int i = 0; i < NUMBER_OF_FIELDS - 1; i++) {
-                    getline(fileIn, record);
-                    fileOut << record << endl;
+                    std::getline(fileIn, record);
+                    fileOut << record << std::endl;
                 }
             }
         }
@@ -199,7 +198,7 @@ void FileManagement :: modify(Ticket *newTicket) {
     fileIn.close();
     fileOut.close();
     if(!updated) {
-        cout << "Record could not be found!" << endl;
+        std::cout << "Record could not be found!" << std::endl;
         remove("temp.txt");
     } else {
         remove(recordFile.c_str());
